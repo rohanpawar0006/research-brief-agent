@@ -1,0 +1,26 @@
+[
+  {
+    "id": "HC-01",
+    "domain": "Enterprise AI & Technology",
+    "topic": "Current state of Agentic AI workflows in enterprise customer support (2024-2025)",
+    "intent": "Assess market adoption, concrete metrics, and operational impact of autonomous agents in customer operations.",
+    "expected_confidence": "High",
+    "context_availability": "Dense public reports, enterprise case studies, vendor metrics (e.g., Klarna, Salesforce, Zendesk)."
+  },
+  {
+    "id": "HC-02",
+    "domain": "Cloud Infrastructure & Data",
+    "topic": "Databricks Lakehouse architecture and Lakebase evolution",
+    "intent": "Understand technical foundation of Apache Iceberg / Delta Lake interoperability and modern data warehouse convergence.",
+    "expected_confidence": "High",
+    "context_availability": "Official engineering blogs, ACM papers, Gartner reports."
+  },
+  {
+    "id": "HC-03",
+    "domain": "Fintech & B2B SaaS",
+    "topic": "Stripe agentic billing and autonomous commerce integration",
+    "intent": "Examine Stripe's programmatic agent payment APIs and autonomous micro-transaction protocols.",
+    "expected_confidence": "High",
+    "context_availability": "Stripe press releases, developer documentation, fintech analyses."
+  }
+]

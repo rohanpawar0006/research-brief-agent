@@ -1,0 +1,10 @@
+# Local environment and OS files
+.serena/project.local.yml
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Sensitive credentials
+.env
+.env.local
