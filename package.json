@@ -1,0 +1,15 @@
+{
+  "name": "research-brief-agent",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "An AI agent that takes a topic or question and returns a structured, source-grounded research brief with an explicit low-confidence path.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.2"
+  }
+}

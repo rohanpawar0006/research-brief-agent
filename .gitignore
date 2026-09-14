@@ -1,3 +1,7 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+
 # Local environment and OS files
 .serena/project.local.yml
 .DS_Store
