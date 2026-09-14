@@ -68,7 +68,7 @@ def get_scaled_image(img_path, target_width):
     target_h = target_width * aspect
     return RLImage(img_path, width=target_width, height=target_h)
 
-def build_pdf(output_path="RemoteInternGlobal_AI_Assessment_Rohan_Pawar.pdf"):
+def build_pdf(output_path="Research_Brief_Agent_360_Master_Interview_Manual.pdf"):
     doc = SimpleDocTemplate(
         output_path,
         pagesize=letter,
