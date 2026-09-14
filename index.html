@@ -76,9 +76,9 @@
         </button>
       </div>
 
-      <!-- Expandable Advanced Settings (Pasted Context or API Key) -->
+      <!-- Expandable Source Context -->
       <button type="button" id="toggle-advanced-btn" class="accordion-toggle" aria-expanded="false" aria-controls="advanced-context-box">
-        <span>▸ Advanced: Provide Custom Source Context or Live Gemini API Key</span>
+        <span>▸ Advanced: Provide Custom Source Context Snippets</span>
       </button>
 
       <div id="advanced-context-box" class="accordion-content">
@@ -88,14 +88,6 @@
           class="context-textarea" 
           placeholder="Paste raw text snippets to test grounding on specific documents..."
         ></textarea>
-
-        <label for="gemini-api-key" class="input-label" style="margin-top: 0.5rem;">Optional Gemini API Key (For Live Google Search Grounding):</label>
-        <input 
-          type="password" 
-          id="gemini-api-key" 
-          class="api-key-input" 
-          placeholder="AIzaSy... (Runs entirely client-side in browser; never stored)"
-        />
       </div>
     </section>
 

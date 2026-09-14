@@ -1,5 +1,5 @@
 import { BENCHMARKS } from './benchmarks.js';
-import { executeLiveResearch, synthesizeLocalContext } from './agent.js';
+import { executeServerlessResearch, synthesizeLocalContext } from './agent.js';
 
 // DOM Elements
 const presetContainer = document.getElementById('preset-buttons-container');
@@ -8,7 +8,6 @@ const generateBtn = document.getElementById('generate-brief-btn');
 const advancedToggleBtn = document.getElementById('toggle-advanced-btn');
 const advancedBox = document.getElementById('advanced-context-box');
 const contextInput = document.getElementById('context-input');
-const apiKeyInput = document.getElementById('gemini-api-key');
 
 const confidenceBadge = document.getElementById('confidence-badge');
 const confidenceBadgeText = document.getElementById('confidence-badge-text');
@@ -152,31 +151,25 @@ generateBtn.addEventListener('click', async () => {
   generateBtn.disabled = true;
 
   try {
-    const apiKey = apiKeyInput.value.trim();
     const context = contextInput.value.trim();
 
-    if (apiKey) {
-      loadingText.textContent = 'Querying Gemini API with Web Grounding...';
-      const briefData = await executeLiveResearch(apiKey, query, context);
-      renderBrief({
-        ...briefData,
-        title: query,
-        topic: query,
-        domain: 'Live Grounded Research'
-      });
-    } else {
-      loadingText.textContent = 'Evaluating Evidence & Grounding Safeguards...';
-      // Simulate rapid grounding analysis
-      await new Promise(r => setTimeout(r, 600));
+    loadingText.textContent = 'Evaluating Evidence & Grounding Safeguards...';
+    
+    // Attempt secure serverless research if configured on Vercel
+    let briefData = await executeServerlessResearch(query, context);
 
-      const briefData = synthesizeLocalContext(query, context);
-      renderBrief({
-        ...briefData,
-        title: query,
-        topic: query,
-        domain: 'Local Grounding Synthesis'
-      });
+    // If serverless is unavailable or running locally, use deterministic local grounding
+    if (!briefData) {
+      await new Promise(r => setTimeout(r, 600));
+      briefData = synthesizeLocalContext(query, context);
     }
+
+    renderBrief({
+      ...briefData,
+      title: query,
+      topic: query,
+      domain: 'Synthesized Brief'
+    });
   } catch (err) {
     alert(`Research Brief Agent Error: ${err.message}`);
   } finally {
@@ -190,8 +183,8 @@ advancedToggleBtn.addEventListener('click', () => {
   const isOpen = advancedBox.classList.toggle('open');
   advancedToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   advancedToggleBtn.querySelector('span').textContent = isOpen
-    ? '▾ Hide Advanced Source Context & API Key'
-    : '▸ Advanced: Provide Custom Source Context or Live Gemini API Key';
+    ? '▾ Hide Custom Source Context'
+    : '▸ Advanced: Provide Custom Source Context Snippets';
 });
 
 // Copy Markdown to Clipboard

@@ -70,7 +70,6 @@ export function parseBriefMarkdown(markdownText) {
     } else if (currentSection === "keyPoints") {
       if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
         const pointText = trimmed.replace(/^[-*]\s+/, "");
-        // Extract theme if formatted like **Theme**: detail
         const match = pointText.match(/^\*\*(.*?)\*\*:\s*(.*)/);
         if (match) {
           result.keyPoints.push({
@@ -123,52 +122,36 @@ export function parseBriefMarkdown(markdownText) {
 }
 
 /**
- * Execute Gemini API with Web Search Grounding if API key provided
+ * Execute research via secure Vercel serverless function (keeps API keys on server).
  */
-export async function executeLiveResearch(apiKey, topic, context = "") {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+export async function executeServerlessResearch(topic, context = "") {
+  try {
+    const response = await fetch('/api/research', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topic, context })
+    });
 
-  const promptContent = context
-    ? `Topic: ${topic}\n\nRetrieved/Provided Source Context:\n${context}\n\nProduce the structured research brief following all system prompt instructions.`
-    : `Topic: ${topic}\n\nSearch and retrieve the latest factual information, then produce the structured research brief. Remember to activate the Low-Confidence path if facts are unverified or non-existent.`;
-
-  const payload = {
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: `${SYSTEM_PROMPT}\n\n---\n\n${promptContent}` }]
+    if (response.ok) {
+      const data = await response.json();
+      if (data.rawText) {
+        return parseBriefMarkdown(data.rawText);
       }
-    ],
-    generationConfig: {
-      temperature: 0.1,
-      maxOutputTokens: 2048
     }
-  };
-
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `API Error: HTTP ${response.status}`);
+  } catch (e) {
+    // Running locally in Vite dev mode or serverless endpoint not active
   }
-
-  const data = await response.json();
-  const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-  return parseBriefMarkdown(textOutput);
+  return null;
 }
 
 /**
- * Synthesizes a research brief from manual context when running locally without an external API key.
+ * Synthesizes a research brief from manual context when running purely offline/client-side.
  */
 export function synthesizeLocalContext(topic, context) {
   if (!context || context.trim().length < 40) {
     // Triggers Low-Confidence Path
     return {
-      summary: `Limited verifiable information is available regarding "${topic}". In the absence of comprehensive primary sources or corporate disclosures, factual metrics and enterprise projections cannot be independently verified.`,
+      summary: `Limited verifiable information is publicly available regarding "${topic}". In the absence of comprehensive primary sources or corporate disclosures, factual metrics and enterprise projections cannot be independently verified.`,
       keyPoints: [
         {
           theme: "Insufficient Evidentiary Data",
