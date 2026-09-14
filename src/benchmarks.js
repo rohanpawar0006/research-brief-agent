@@ -10,7 +10,7 @@ export const BENCHMARKS = [
     keyPoints: [
       {
         theme: "Resolution Velocity & Volume Scale",
-        detail: "Autonomous customer support agents achieved immediate scale, with benchmark deployments (such as Klarna's rollout) handling 2.3 million conversations in their first month—representing 67% of total customer chat volume—while slashing average resolution times from 11 minutes to under 2 minutes.",
+        detail: "Autonomous customer support agents achieved immediate scale, with benchmark deployments (such as Klarna's rollout) handling 2.3 million conversations in their first month—representing 67% of total customer chat volume—while slashing average resolution times by ~82% (from 11 minutes to under 2 minutes).",
         source: "OpenAI & Klarna Corporate Case Studies"
       },
       {
@@ -30,7 +30,7 @@ export const BENCHMARKS = [
       }
     ],
     sources: [
-      { name: "Klarna Corporate Newsroom & Case Study", url: "https://www.klarna.com", desc: "Operational metrics on 2.3M automated chats and resolution time reductions." },
+      { name: "Klarna Corporate Newsroom & Case Study", url: "https://www.klarna.com", desc: "Operational metrics on 2.3M automated chats and resolution time cut ~82% (11 min to under 2 min)." },
       { name: "OpenAI Enterprise Customer Stories", url: "https://openai.com/customer-stories", desc: "Technical implementation and conversational routing analysis." },
       { name: "Financial Times Analysis", url: "https://www.ft.com", desc: "Evaluation of financial savings and the strategic pivot to hybrid human support." },
       { name: "TechCrunch Enterprise Software Review", url: "https://techcrunch.com", desc: "Analysis of CRM architecture consolidation and SaaS pricing impacts." }

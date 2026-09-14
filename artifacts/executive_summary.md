@@ -40,7 +40,7 @@ To prove this behavior, the agent was tested against two opposing scenarios:
 - **Query:** *"Current state of Agentic AI workflows in enterprise customer support (2024-2025)"*
 - **Outcome:** Passed 100% of formatting and grounding checks.
   - **Summary:** Concise 3-sentence synthesis on scale, cost reduction, and the mid-2025 human-in-the-loop pivot.
-  - **Key Points:** 4 verified bullet points referencing Klarna's 2.3M automated chats, 80% resolution drop, $40M profit impact, and the Salesforce/Workday SaaS pricing debate.
+  - **Key Points:** 4 verified bullet points referencing Klarna's 2.3M automated chats, resolution time cut ~82% (11 min → under 2 min), $40M profit impact, and the Salesforce/Workday SaaS pricing debate.
   - **Sources:** Corroborated URLs from corporate case studies, Financial Times, and TechCrunch.
   - **Confidence Note:** `High Confidence`.
 - **Artifact Reference:** [`outputs/phase1_baseline_brief.md`](../outputs/phase1_baseline_brief.md)
